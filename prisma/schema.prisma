@@ -17,3 +17,12 @@ model Explorer {
   dateCreated DateTime @default(now())
   lastUpdated DateTime @updatedAt
 }
+
+model ExplorerCrud{
+  id Int @id @default(autoincrement())
+  name String @unique
+  lang String @explorers_api.VarChar(255)
+  missionCommander String @explorers_api.VarChar(255)
+  enrollments Int @unique
+  hasCertification Boolean @default(false)
+}
