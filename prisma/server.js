@@ -30,18 +30,17 @@ app.post('/explorers', async (req, res) => {
   await prisma.explorer.create({data: explorer});
   return res.json({message});
 });
-app.put('/explorers/:id', async (req, res) => {
+app.put('/explorers/:id/:mission', async (req, res) => {
 	const id = parseInt(req.params.id);
-
+  const updmission = req.params.mission;
 	await prisma.explorer.update({
 		where: {
 			id: id
 		},
 		data: {
-			mission: req.body.mission
+			mission: updmission
 		}
 	})
-
 	return res.json({message: "Actualizado correctamente"});
 });
 app.delete('/explorers/:id', async (req, res) => {
@@ -49,6 +48,10 @@ app.delete('/explorers/:id', async (req, res) => {
 	await prisma.explorer.delete({where: {id: id}});
 	return res.json({message: "Eliminado correctamente"});
 });
+app.get("/api/explorercrud", async(req, res)=>{
+  const allExplorers = await prisma.explorerCrud.findMany();
+  res.json(allExplorers)
+})
 
 app.listen(port, () => {
   console.log(`Listening to requests on port ${port}`);
