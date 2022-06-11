@@ -26,3 +26,12 @@ model ExplorerCrud{
   enrollments Int @unique
   hasCertification Boolean @default(false)
 }
+
+model missionCommander{
+  id Int @id @default(autoincrement())
+  name String @unique @explorers_api.VarChar(255)
+  username String @explorers_api.VarChar(255)
+  mainStack String @explorers_api.VarChar(255)
+  currentEnrollment Int @unique
+  hasAzureCertification Boolean @default(false)
+}
