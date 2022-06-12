@@ -35,7 +35,6 @@ app.post('/explorers', async (req, res) => {
     username: req.body.username,
     mission: req.body.mission
 };
-
   const message = 'Explorer creado.';
   await prisma.explorer.create({data: explorer});
   return res.json({message});
@@ -91,9 +90,13 @@ app.put("/explorerCrud/:id", async (req, res) => {
     where: {
         id: id
     },
-    data: {
-        missionCommander: req.body.missionCommander
-    }
+    data:{
+    name: req.body.name,
+    lang: req.body.lang,
+    missionCommander: req.body.missionCommander,
+    enrollments: req.body.enrollments,
+    hasCertification: req.body.hasCertification
+  }
   });
   return res.json({message: "Actualizado correctamente"});
 });
@@ -117,7 +120,7 @@ app.get("/missionCommander/:id", async (req, res) => {
 });
 
 app.post("/missionCommander", async (req, res) => {
-  const missinComanderInfoNew = {
+  const missionComanderNew = {
     name: req.body.name,
     username: req.body.username,
     mainStack: req.body.mainStack,
@@ -125,7 +128,7 @@ app.post("/missionCommander", async (req, res) => {
     hasAzureCertification: req.body.hasAzureCertification
   };
   const message = "mission";
-  await prisma.missionCommander.create({data: missinComanderInfoNew});
+  await prisma.missionCommander.create({data: missionComanderNew});
   return res.json({message});
 });
 
@@ -136,7 +139,11 @@ app.put("/missionCommander/:id", async (req, res) => {
         id: id
     },
     data: {
-        missionCommander: req.body.missionCommander
+      name: req.body.name,
+      username: req.body.username,
+      mainStack: req.body.mainStack,
+      currentEnrollment: req.body.currentEnrollment,
+      hasAzureCertification: req.body.hasAzureCertification
     }
   });
   return res.json({message: "Actualizado correctamente"});
